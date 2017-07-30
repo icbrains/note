@@ -59,3 +59,12 @@ working directory表示在电脑中看到的目录.
 		③将本地的分支推送到远程仓库，git push -u origin branch-name(-u 表示让github知道是谁提交的，这是在第一次提交时需要添加的，以后就可以省略,整个命令的作用就是将本地仓库的某一分支推送到远程仓库)
 		④当本地仓库的版本低于远程GitHub的版本时，就会出现push失败的情况，首先需要使用git pull将新的更新拉取下来，如果pull失败，此时就需要在本地创建与远程仓库对应的分支并且与它创建关联git branch --set-upstream branch-name origin/branch-name
 		然后进行push
+20)git的标签
+	tag的意义：tag其实就是指向某一个commit的指针，跟分之很像，但是又不一样，分支是可以移动的，tag则不能，所以tag的创建和删除都是瞬间完成的。
+	tag的创建：git tag tagName(v1.2)
+	git tag -a <tagname> -m "blablabla..."可以指定标签信息；
+
+	git tag -s <tagname> -m "blablabla..."可以用PGP签名标签；
+
+	命令git tag可以查看所有标签。
+	
