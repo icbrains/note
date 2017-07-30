@@ -114,5 +114,43 @@ public class CollectionTest {
 3、String str="data"和String str=new String("data")的区别;
 	第一个表示在字符串池里写入一个字符串data，后者表示在堆中创建一个引用指向栈内存中存储的data内存块
 	前者str在栈中分配内存，后者str在堆中分配内存
-4、
->>>>>>> ee59a20a75302256f32965a9c6604588e3130245
+4、singleton单例类:只能有一个实例的类称之为单例类
+单例的code:
+	public class SingletonTest {
+    //定义一个类变量来存储对象
+    private static  SingletonTest singletonTest;
+    private SingletonTest(){}
+
+    public static SingletonTest instance(){
+        if (singletonTest==null){
+            singletonTest=new SingletonTest();
+            return singletonTest;
+        }else {
+            return singletonTest;
+        }
+    }
+    }
+5、抽象类(abstract)
+	成为抽象类的三种情况：
+		①直接定义一个抽象类
+		②继承一个抽象类，但是没有完全实现父类的所有方法，此时就需定义成abstract class
+		③实现一个接口，但是没有完全实现接口的所有方法，此时也需要定义成abstract class
+	抽象类的作用：抽象类提供了一种模板设计模式，作为多个子类的通用模板
+6、接口和抽象类的异同：
+	1)同： ①接口和抽象类都不能实例化
+		  ②接口和抽象类都可以包含抽象方法，实现接口或者继承抽象类的普通子类都必须实现这些抽象方法
+	2)异： ①接口只能包含抽象方法和默认方法，不能为普通方法提供方法实现，抽象类则完全可以包含普通方法
+		   ②接口里不能定义静态方法，抽象类则完全可以
+		   ③接口里只能定义静态常量(public static final [常量])，不能定义普通成员变量，抽象类里面既可以定义静态常量，也可以定义普通成员变量
+		   ④接口里面不能包含构造器，抽象类则可以
+		   ⑤接口不能包含初始化块，抽象类则可以
+		   ⑥一个类最多只能有一个直接父类，包括抽象类；但是一个类可以直接实现多个接口，通过实现多个接口来弥补Java不能多继承的缺陷。
+7、内部类：定义在一个类里面的类称之为内部类，内部类比外部类多了三个修饰符：private protected static
+	1)非静态内部类
+		①非静态内部类不能含有静态成员
+		②在非静态的内部类中可以直接访问外部类的private成员，这是因为在内部内的对象中保存着一个它所寄生的外部类对象的引用
+		③在外部类以外的类中访问非静态的内部类，首先内部类应该是public修饰，构造方法也应该是public修饰(这种情况是不在同一个包下访问的时候，同一个包下可以使用默认)，格式：OutterClass.InnerClass varName=new OutterClass()或者OutterClass的引用.new InnterClass();
+	2)静态的内部类：
+		①静态内部类可以包含静态成员，也可以包含非静态成员
+		②静态内部类不能访问非静态外部类的实例成员，只能访问外部类的静态成员
+		③
