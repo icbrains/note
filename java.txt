@@ -150,7 +150,16 @@ public class CollectionTest {
 		①非静态内部类不能含有静态成员
 		②在非静态的内部类中可以直接访问外部类的private成员，这是因为在内部内的对象中保存着一个它所寄生的外部类对象的引用
 		③在外部类以外的类中访问非静态的内部类，首先内部类应该是public修饰，构造方法也应该是public修饰(这种情况是不在同一个包下访问的时候，同一个包下可以使用默认)，格式：OutterClass.InnerClass varName=new OutterClass()或者OutterClass的引用.new InnterClass();
+		ps~:为什么必须new InnerClass(),这是因为InnerClass是非静态的内部类，它寄存在外部类的引用中，而在InnerClass中有一个OutterClass.this的引用，所以必须先创建外部类的引用才能内部类才能工作。
 	2)静态的内部类：
 		①静态内部类可以包含静态成员，也可以包含非静态成员
 		②静态内部类不能访问非静态外部类的实例成员，只能访问外部类的静态成员
-		③
+		③在外部类以外的类中访问静态的内部类的格式：new OutterClass.InnerCLass();
+	3)匿名内部类(anonymouse)
+		①格式 new interface()/new class(){
+			//匿名内部类的类体部分
+		}
+		②通过实现接口创建匿名内部类时，匿名内部类也不能显示的创建构造器(construct),因此匿名内部类只有一个隐式的无参数的构造器，故new接口名后的括号里不能传入参数值；
+		③通过继承一个类来创建内部类时，匿名内部类拥有和父类相似的构造器，此处的相似指的是拥有相同的形参列表
+8、Lambda表达式
+	lambda表达式允许将代码块最为方法参数
