@@ -30,6 +30,7 @@ working directory表示在电脑中看到的目录.
 13)当把一个错误commit到版本库中后，想要撤销可以使用git reset HEAD^/数字：表示要退回到哪个版本
 14)添加远程仓库:git remote add origin admin@server/repository.git
 	将本地仓库的分支推送到远程仓库；git push -u origin master(第一次提交需要加参数-u)/git push origin master
+	删除远程库：git remote rm remoteRepositoryName
 15)copy remote repository:git clone user@serverIP/repository.git
 16)git的分支：git branch 查看所有的分支
 	①创建和合并：git branch masterName(创建分支masterName),git checkout masterName(切换到分支masterName).
