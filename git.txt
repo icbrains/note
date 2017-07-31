@@ -69,4 +69,5 @@ working directory表示在电脑中看到的目录.
 
 	命令git tag可以查看所有标签。
 21)搭建git服务器：
+22)shixun
 	
