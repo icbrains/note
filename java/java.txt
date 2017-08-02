@@ -1,0 +1,165 @@
+java笔记
+----------------2017.07.24-------------------------
+通常，必须对对象采用一种更通用的初始化方法
+2、引用存储在堆栈中，对象存储在堆中
+3、常量存储在只读存储器中ROM
+4、基本数据类型(8)：
+				整型：byte{8b/min(-128)--max(127)}、short{16b/min(-2^15)--max(2^15-1)}、
+				int{32b/min(-2^31)--max(2^31-1)}、long{64b/min(-2^63)--max(2^63-1)}
+				浮点型：float(32b) double(64b)
+				字符型：char{16b/min(Unicode 0)--max(Unicode2^16-1)}
+				boolean： boolean（true、false）
+
+5、Java中的数组：在Java中创建一个数组对象时，实际上就创建了一个引用数组，并且每个引用都会被自动初始化，初始化值为null，在Java中一旦看到null；就知道这个引用没有关联一个对象。
+6、Java类中的两种；类型的元素：字段（数据成员）、方法（成员函数）
+7、Java基本数据成员的默认值：
+						char：null
+						byte：(byte)0
+						short:(short)0
+						int:0
+						long:0L
+						float:0.0f
+						double:0.0d
+						boolean:false
+8、在Java类中如果类的字段（属性）是基本数据类型，即使没有初始化，Java也会确保其有一个初始化的值；
+ps～：当是一个局部变量的时候，Java并不会自动初始化该变量，在程序编译时返回一个未初始化的错误。
+9、static和非static的区别：
+	①static是指静态的可以用来修饰属性、方法以及内部类，当static修饰属性时，我们称这个属性为类变量，由类创建的所有对象都共用这一个属性
+	②当其中一个对象对此对象属性进行修改，会导致其他对象对属性的一个调用vs实例变量，对照的实例变量而言，
+	③类变量随着类的加载而加载，而且独一份
+	④静态的变量可以直接通过类.变量来访问
+	⑤类变量的加载要早于对象，所以当有对象后可以对象.类变量访问，但是一般不推荐这样做。但是类.实例变量是不行的。
+	⑥类变量存在于静态域中。
+	⑦非static的变量或者方法是必须和某一特定的对象关联在一起的；
+	⑧static的变量或者方法是不需要和某一特定的对象关联在一起的，它是处于类级别的。
+	⑨static修饰的方法称之为类方法，方法也是随着类的加载而加载，在内存中独一份
+	⑩可以直接通过类.类方法调用
+	11)静态方法内部可以调用静态的属性或者静态的方法，而不能调用非静态的属性或者方法，反之非静态的方法可以访问静态的方法或者属性,所以在static的方法中不能有非static的方法
+	12)静态的方法是不可以有this或者super出现
+	
+10、在Java中操作对象时，实际上操作的是对象的引用，eg：A a=new A();A b=a;
+在这里，a和b其实指向的是同一个对象new A（）；b=a操作实际上是将a的引用赋值给b
+11、equals()方法默认是比较两个引用，所以要想根据自己的想法来比较两个变量时，要重写equals（）；
+12、Java的逻辑运算时会出现短路的现象
+13、break是强制退出循环，continue是结束本次循环，进行下一次循环，return的作用是返回一个值并且退出方法。
+----------------------2017.07.25----------------------
+1、当基本数据类型的变量作为方法重载时的形参时，如果传入的实参小于形参的类型，实参将会被自动升级，但是char类型比较特殊，char会直接升级到int。
+如果传入的实参大于形参的类型，就需要对参数进行强制转换。
+2、方法重载
+		①参数类型/个数不同
+		②返回值不同
+3、this关键字：在Java中，this关键字只能出现在方法中，它代表当前方法的对象；在一般的情况下，不需要显式将this关键字写出来，高级语言Java会自动帮我们添加，但是当需要返回一个当前对象时，此时就需要使用this，除此之外，在构造器之间调用的时候也要显式的使用this;
+4、终结处理和垃圾回收：java垃圾回收机制只能回收new出来的对象
+5、变量定义的顺序决定了初始化的顺序，但是不管放在哪里，在方法和构造器使用变量之前变量都会被初始化
+6、Java的访问控制权（由大-->小）：public、project、包访问(无关键字)、private；
+如果不给定任何控制修饰词，则默认是包访问权限，在同一个包中的类可以访问project修饰的成员，private则不可以
+7、super关键字是出现在继承的子类中，使用的三种情况：(this是基于类)
+						①子类调用父类的构造器
+						②子类调用父类的方法
+						③子类使用父类的成员变量(属性/元素)
+8、多态
+9、接口：
+10、java中操作符的优先级：++、--、*
+----------------------2017.07.26----------------------
+1、java容器类类库的用途是“保存对象”，并将其划分为两个不同的概念。
+2、collection一个独立元素的序列，这些元素都服从一条或者多条规则
+	①List必须是按照插入的顺序保存元素，但是可以重复
+	②Set中的元素不能重复，但是没有顺序
+	③Map一组成对的键值对对象
+3、Java中的迭代器是一个功能非常强大的包装类，主要是为了遍历集合中的元素。
+public class CollectionTest {
+    public static void main(String[] args){
+        List list=new ArrayList();
+        list.add(4);
+        list.add(5);
+        list.add(46);
+        testCollection(list.iterator());
+    }
+    public static void testCollection(Iterator iterator){
+        while (iterator.hasNext()){
+            System.out.println(iterator.next());
+        }
+    }
+}
+4、stack"栈"：后进先出的容器
+5、queue"队列":先进先出
+6、I/O流的操作：
+	一、Io的分类：
+	①输入流（字节输入流、字符输入流）/输出流（字符输出流、字节输出流）
+	②字节流的最小单位：一个字节(8位【一个字节】)
+	③字符流的最小单位：一个字符(16位【两个字节】)
+	二、节点流和处理流的区别
+	①节点流是直接以物理IO节点作为构造器参数
+	②处理流是以已存在的流作为构造器参数(使用处理流进行IO时操作更加简单；使用处理流的执行效率更高)
+	三、流的分类
+	①基本抽象类：OutputStream、Writer、InputStream、Reader
+	②访问文件：FileOutputStream、FileWriter、FileInputStream、FileReader
+	③访问数组：ByteArrayOutputStream、CharArrayWriter、ByteArrayInputStream、CharArrayReader
+	④访问管道：PipedOutputStream、PipedWriter、PipedInputStream、PipedReader
+	⑤访问字符串：StringWriter、StringReader
+	⑥缓冲流：BufferedOutputStream、BufferedWriter、BufferedInputStream、BufferedReader
+	⑦转换流：OutputStreamWriter、InputStreamReader
+	⑧对象流：ObjectOutputStream、ObjectInputStream
+	⑨抽象基类：FilterOutputStream、FilterWriter、FilterInputStream、FilterReader
+	⑩打印流：PrintStream、PrintWriter
+	11)推回输入流：PushbackInputStream、PushbackReader
+	12)特殊流：DataOutputStream、DataInputStream
+	ps~:System.in是标准的输入流（原型:public static final InputStream in）,所以InputStreamReader reader=new InputStreamReader(System.in)是成立的；
+	拓展：public static final PrintStream out(标准的输出流);public static final PrintStream err(标准的错误输出流)
+----------------------2017.07.27----------------------
+1、递归：方法自己调用自己
+2、java中null关键字和""的说明：
+	①String s=null；、String s1="";s表示一个空的引用，不分配堆内存空间，s1表示定义了一个长度为0的字符串
+	②s可以作为任何对象的引用
+3、String str="data"和String str=new String("data")的区别;
+	第一个表示在字符串池里写入一个字符串data，后者表示在堆中创建一个引用指向栈内存中存储的data内存块
+	前者str在栈中分配内存，后者str在堆中分配内存
+4、singleton单例类:只能有一个实例的类称之为单例类
+单例的code:
+	public class SingletonTest {
+    //定义一个类变量来存储对象
+    private static  SingletonTest singletonTest;
+    private SingletonTest(){}
+
+    public static SingletonTest instance(){
+        if (singletonTest==null){
+            singletonTest=new SingletonTest();
+            return singletonTest;
+        }else {
+            return singletonTest;
+        }
+    }
+    }
+5、抽象类(abstract)
+	成为抽象类的三种情况：
+		①直接定义一个抽象类
+		②继承一个抽象类，但是没有完全实现父类的所有方法，此时就需定义成abstract class
+		③实现一个接口，但是没有完全实现接口的所有方法，此时也需要定义成abstract class
+	抽象类的作用：抽象类提供了一种模板设计模式，作为多个子类的通用模板
+6、接口和抽象类的异同：
+	1)同： ①接口和抽象类都不能实例化
+		  ②接口和抽象类都可以包含抽象方法，实现接口或者继承抽象类的普通子类都必须实现这些抽象方法
+	2)异： ①接口只能包含抽象方法和默认方法，不能为普通方法提供方法实现，抽象类则完全可以包含普通方法
+		   ②接口里不能定义静态方法，抽象类则完全可以
+		   ③接口里只能定义静态常量(public static final [常量])，不能定义普通成员变量，抽象类里面既可以定义静态常量，也可以定义普通成员变量
+		   ④接口里面不能包含构造器，抽象类则可以
+		   ⑤接口不能包含初始化块，抽象类则可以
+		   ⑥一个类最多只能有一个直接父类，包括抽象类；但是一个类可以直接实现多个接口，通过实现多个接口来弥补Java不能多继承的缺陷。
+7、内部类：定义在一个类里面的类称之为内部类，内部类比外部类多了三个修饰符：private protected static
+	1)非静态内部类
+		①非静态内部类不能含有静态成员
+		②在非静态的内部类中可以直接访问外部类的private成员，这是因为在内部内的对象中保存着一个它所寄生的外部类对象的引用
+		③在外部类以外的类中访问非静态的内部类，首先内部类应该是public修饰，构造方法也应该是public修饰(这种情况是不在同一个包下访问的时候，同一个包下可以使用默认)，格式：OutterClass.InnerClass varName=new OutterClass()或者OutterClass的引用.new InnterClass();
+		ps~:为什么必须new InnerClass(),这是因为InnerClass是非静态的内部类，它寄存在外部类的引用中，而在InnerClass中有一个OutterClass.this的引用，所以必须先创建外部类的引用才能内部类才能工作。
+	2)静态的内部类：
+		①静态内部类可以包含静态成员，也可以包含非静态成员
+		②静态内部类不能访问非静态外部类的实例成员，只能访问外部类的静态成员
+		③在外部类以外的类中访问静态的内部类的格式：new OutterClass.InnerCLass();
+	3)匿名内部类(anonymouse)
+		①格式 new interface()/new class(){
+			//匿名内部类的类体部分
+		}
+		②通过实现接口创建匿名内部类时，匿名内部类也不能显示的创建构造器(construct),因此匿名内部类只有一个隐式的无参数的构造器，故new接口名后的括号里不能传入参数值；
+		③通过继承一个类来创建内部类时，匿名内部类拥有和父类相似的构造器，此处的相似指的是拥有相同的形参列表
+8、Lambda表达式
+	lambda表达式允许将代码块最为方法参数

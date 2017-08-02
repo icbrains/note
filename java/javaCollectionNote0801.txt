@@ -1,0 +1,81 @@
+--------------------------2017-08-01-----------------------
+1、Collection集合是所有集合的父类，collection继承Iterator
+2、遍历集合的常见方法以及java8新增的Predicate操作类和流API(Stream IntStream LongStream DoubleStream)
+	①foreach
+	②Lambda表达式
+	③Iterator接口
+	④Predicate是一个函数式接口，所以用Lambda作为参数
+	⑤流API也是java8新增的内容，使用流的基本步骤(以IntStream),IntStream stream=IntStream.builder()---->获得Builder对象
+																						.add()[若干]------>使用Builder的add方法向流中添加数据
+																						.build()------>调用Builder的build来获取对应的Stream
+	示例代码：
+	public class CollectionsTest {
+    public static void collectionsMethod(){
+        Collection book=new HashSet();
+        book.add("java虚拟机规范");
+        book.add("互联网轻量级框架整合");
+        book.add("算法");
+        book.add("Mybatis深入浅出");
+        book.add("test");
+
+        /*
+        遍历集合
+         */
+        //foreach
+        for(Object obj:book){
+            System.out.print(obj+" ");
+        }
+        System.out.print("foreach 遍历"+"\n");
+        //Iterator
+        Iterator iterator=book.iterator();
+        while (iterator.hasNext()){
+            String str=(String) iterator.next();
+            System.out.print(str+" ");
+        }
+        System.out.print("Iterator遍历"+"\n");
+        //Lambda
+        book.forEach(obj->System.out.print(obj+" "));
+        System.out.print("Lambda遍历"+"\n");
+        //集合的操作类Predicate
+        book.removeIf(obj->((String)obj).contains("te"));
+        book.forEach(obj->System.out.print(obj+" "));
+        System.out.print("Predicate操作集合"+"\n");
+        //集合的流Stream IntStream LongStream DoubleStream
+        IntStream stream= IntStream.builder()
+                .add(56)
+                .add(12)
+                .add(-45)
+                .add(154)
+                .add(20513)
+                .build();
+        //System.out.print("stream所有元素的和 -->"+stream.sum()+"\n");
+        System.out.print("stream所有元素的最大值--> "+stream.max()+"\n");
+        //使用流API操作集合
+        long flag=book.stream().filter(obj->((String)obj).contains("互联网")).count();
+        System.out.println("count: "+flag);
+
+    }
+
+    public static void main(String[] args){
+        collectionsMethod();
+    }
+}
+
+3、set集合
+	set集合的常见实现类HashSet，它有如下特性：
+		①无序不可重复
+		②它不是同步的，当两个线程同时修改HashSet的内容时，需要人为使用代码实现同步
+		③集合元素的值可以是null
+		ps~：HashSet判断两个元素是否相等是根据equals()和hashCode()来判断的，当两个元素通过equals比较返回true，但是hashCode不同，则HashSet将会把它看成两个不同的元素存入集合中，(当满足equals返回true，hashCode相等的时候，才会把两个元素看成是一个，第二个元素则不会存入集合中)
+	HashSet的子类LinkedHashSet顾名思义，linked表示链，所以这个它是一种有序的set集合，采用链表的形式存储元素，在LinkedHashSet存入元素时要保证元素的插入顺序，所以性能较HashSet略低。
+	TreeSet实现了SortSet接口，顾名思义TreeSet集合的元素处于排序状态，排序可以是自然排序或者是定制排序
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
