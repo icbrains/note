@@ -74,6 +74,16 @@
 		①有序可重复
 		②ArrayList不是线程安全的，当两个线程同时修改内容时，需要人为使用代码实现同步，但是Collections工具类可以将它编程线程安全
 		③Vector是线程安全的，不需要考虑同步的问题
+		④固定长度的List,在数组的工具类Arrays中，asList(Object ...a)方法可以把一个指定的数组转换成List集合，但是这个List集合既不是ArrayList实现类的实例，也不是Vector实现类的实例，而是Arrays的内部类ArrayList的实例
+			Arrays.ArrayList是一个固定长度的List集合，所以不能对该集合里的元素进行CRUD。
+5、map集合(map集合的存储方式key--->value)
+	map集合的常见实现类HashMap，Hashtable
+		①key--->不可以重复，但是value是可以重复的
+		②HashMap是非线程安全的，Hashtable是线程安全的(所以HashMap的效率高于Hashtable)
+		③HashMap允许以null作为key的值，但是Hashtable不允许null作为key
+		④HashMap和Hashtable判断两个value是否相等的依据：只要通过equals比较返回true，就认为这两个value是相等的
+		⑤Hashtable和HashMap判断key是否相等的标准：equals返回true，且hashCode的值是相等的
+6、Collections工具类
 
 	
 	
