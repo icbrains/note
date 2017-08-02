@@ -1,0 +1,72 @@
+git的基本操作命令
+1)git init
+2)git add 
+3)git commit -m '' 
+4)git status
+5)git diff:diff命令是来查看当前仓库的情况（difference）。对比工作区和版本库中的差异，如果在工作区中修改之后没有提交，则会出现版本库和工作区不一致的情况，使用diff就可以很明显的看出来在工作区中修改的是什么内容
+6)git log /git log --pretty=oneline：log是用来显示提交的日志，--pretty=oneline表示将信息显示在一行上。
+eg:
+icbrains@icbrains-CW17:~/Desktop/testGit$ git log --pretty=oneline
+6553bf652c09a063326a5450b494964d3e8203e3 第二次修改版本
+228c0944d0e8c3993aad18f257fde49e2718fcdf 第一次修改
+03aad9cb50a2c7e1d5c3dcdc815a924c9f225f8a 添加了初始化
+7)git reflog 查看命令历史，以便确定要回到未来的哪个版本
+eg：
+	icbrains@icbrains-CW17:~/Desktop/testGit$ git reflog
+	6553bf6 HEAD@{0}: reset: moving to 6553bf652c09a063326a5450b494964d3e8203e3
+	03aad9c HEAD@{1}: reset: moving to 03aad9cb50a2c7e1d5c3dcdc815a924c9f225f8a
+	228c094 HEAD@{2}: reset: moving to HEAD~1
+	6553bf6 HEAD@{3}: commit: 第二次修改版本
+	228c094 HEAD@{4}: commit: 第一次修改
+	03aad9c HEAD@{5}: commit (initial): 添加了初始化
+8)git reset --hard HEAD~^/版本号(在git中HEAD表示当前版本，使用reset命令回退到以前的版本中的时候可以使用HEAD^[表示回退到当前版本的上一个版本，两个^^表示回退到当前版本的上上个版本，以此类推。但是当版本很多的时候，这种就不方便了，可以使用HEAD~数字来代替，数字表示你想要回到哪个版本的版本号])
+9)工作区和暂存区：
+working directory表示在电脑中看到的目录.
+版本库(Repository):在工作区中可以看到.git文件，这个文件就是版本库，版本库中有暂存区(stage),master分支{master分支是git默认的给出的唯一分支}，通过add命令将文件提交到stage中，然后通过commit提交到master分支上。HEAD是指向master的一个指针。代表当前版本。
+10)git checkout -- file(--很重要，没有--就会变成切换到另一个分支的命令)；撤销修改，它会退回到最近一次commit 和 add的时候。这个命令只能撤销在add之前工作区的修改，一旦add之后将无法撤销。
+11)git reset HEAD file:这个命令是你做完不应该的修改之后用过add提交到stage中撤销使用的，它的作用就是退回到最新版本，并且可以把stage的修改回退到工作区。
+12)当把一个错误add到stage中后，要想撤销分为两步，①使用git reset HEAD file ②使用git checkout --file
+强调：reset的作用不仅可以退回版本，而且可以退回工作区
+13)当把一个错误commit到版本库中后，想要撤销可以使用git reset HEAD^/数字：表示要退回到哪个版本
+14)添加远程仓库:git remote add origin admin@server/repository.git
+	将本地仓库的分支推送到远程仓库；git push -u origin master(第一次提交需要加参数-u)/git push origin master
+	删除远程库：git remote rm remoteRepositoryName
+15)copy remote repository:git clone user@serverIP/repository.git
+16)git的分支：git branch 查看所有的分支
+	①创建和合并：git branch masterName(创建分支masterName),git checkout masterName(切换到分支masterName).
+	以上两条命令可以使用git checkout -b masterName
+	②将dev分支合并到当前的主分支master上:git merge dev
+	③分支合并之后就可以删除分支:git branch -d dev
+	④解决冲突:解决冲突的解决步骤：
+		先合并分支(切换到master分支)：git merge newMaster,git会提示两个文件发生了冲突，此时git将两个文件冲突的部分通过>>>>>>>、=======、<<<<<<<标记出来
+		然后在master分支上重新将文件添加到stage中提交(git add file--->git commit -m '')
+		ps~:通过git log --graph来查看git的合并图
+	⑤分支管理策略:
+		禁用fast forword:git merge --no-ff -m '' newMaster
+		使用普通合并，合并后的历史有分支，能看出来曾今做过合并，快速合并则没有
+		在多人开发中master分支只作为发布版本分支，其他的分支应该在newMaster分支上进行，最后将newMaster分支跟master分支合并在一起。
+17)bug分支
+	在软件开发中出现发现在当前的分支上出现bug，需要及时修复，但是当前的任务还没有完成不能commit，这时就需要我们将working的修改隐藏，在该分支上新建一个临时的bug分支来修复bug，
+		bug修复之后将分支合并然后删除，然后再讲working的隐藏还原，继续工作。
+		基本步骤:git stash (隐藏当前未commit的工作区)/通过git stash list 可以查看stash中的内容
+				git stash apply(恢复working，但是保留stash中的内容) git stash drop(删除stash中的内容)/git stash pop(恢复working的内容，并删除stash中的内容)
+				ps~:你可以多次stash，恢复的时候，先用git stash list查看，然后恢复指定的stash，用命令： git stash apply stash@{0}
+18)Feature分支：此分支主要是用来添加软件新功能的时候用的，不影响主分支，本质上跟在分支上开发，完成后和主分支合并是没有任何区别的，但是当不需要一个功能的时候，我们就不需要将这个分支和主分支合并了，此时就需要删除此分支，
+但是通过git branch -d newMaster时不能删除，此时就需要强制的删除，使用git branch -D newMaster
+19)多人协作：
+	以github为例：
+		①在GitHub上创建一个仓库，然后通过git clone将remote repository copy到本地
+		⑤在本地仓库中添加远程仓库：git remote add origin(远程仓库的名称) [远程仓库的地址]
+		③将本地的分支推送到远程仓库，git push -u origin branch-name(-u 表示让github知道是谁提交的，这是在第一次提交时需要添加的，以后就可以省略,整个命令的作用就是将本地仓库的某一分支推送到远程仓库)
+		④当本地仓库的版本低于远程GitHub的版本时，就会出现push失败的情况，首先需要使用git pull将新的更新拉取下来，如果pull失败，此时就需要在本地创建与远程仓库对应的分支并且与它创建关联git branch --set-upstream branch-name origin/branch-name
+		然后进行push
+20)git的标签
+	tag的意义：tag其实就是指向某一个commit的指针，跟分之很像，但是又不一样，分支是可以移动的，tag则不能，所以tag的创建和删除都是瞬间完成的。
+	tag的创建：git tag tagName(v1.2)
+	git tag -a <tagname> -m "blablabla..."可以指定标签信息；
+
+	git tag -s <tagname> -m "blablabla..."可以用PGP签名标签；
+
+	命令git tag可以查看所有标签。
+21)搭建git服务器：
+	
