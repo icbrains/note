@@ -1,0 +1,299 @@
+一、Mybatis是一个半自动映射的ORM框架
+	1、介绍Mybatis的基本组成
+		1)、SqlSessionFactoryBuilder(构造器)：它是根据配置信息或者是代码来生成SqlSessionFactory接口
+		2)、SqlSessionFactory：依靠工厂来生成SqlSession
+		3)、SqlSession：是一个既可以发送SQL去执行并返回结果，也可以获取Mapper的接口
+		4)、SQL Mapper：它是Mybatis的一个新组件，是由一个Java接口和XML文件(或注解)构成的，需要给出对应的SQL和映射规则，他负责发送SQL去执行，并返回结果
+	2、Mybatis的CURD的完整实例：
+		目录结构：
+			---Project_Name
+				---lib
+				---src
+					---package
+				---mybatis-config.xml
+		/**
+		* 开始代码.
+		*/
+/****************************************mybatis-config.xml**********************************************************************/	
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--开启驼峰-->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <!--定义别名-->
+    <typeAliases>
+        <typeAlias type="cn.icbrains.bean.Role" alias="role"/>
+    </typeAliases>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/mybatis?useSSL=false"/>
+                <property name="username" value="root"/>
+                <property name="password" value="wyy123byb"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="cn\icbrains\mapper\RoleMapper.xml"></mapper>
+    </mappers>
+</configuration>	
+/****************************************获得一个SqlSessionFactory的类**********************************************************************/
+package cn.icbrains.mybatis;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+/**
+ * Created by icbrains on 2017/8/2.
+ */
+public class MybatisTest {
+
+    private static SqlSessionFactory sqlSessionFactory=null;
+    //定义一个用于线程安全的静态常量
+    private static final Class CLASS_LOCK=MybatisTest.class;
+    private MybatisTest(){
+
+    }
+
+    /**
+     * 此方法是获得一个SqlSessionFactory对象，首先获得输入对象（inputStream字节输入流），
+     * 然后将输入流作为build的参数创建sqlSessionFactory
+     *
+     * @return 返回一个SqlSessionFactory对象
+     */
+    private static SqlSessionFactory initSqlSessionFactory(){
+        String source="mybatis-config.xml";
+        InputStream inputStream=null;
+        try{
+            inputStream= Resources.getResourceAsStream(source);
+            System.out.println("result "+inputStream);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        //创建线程安全
+        synchronized (CLASS_LOCK){
+            if (sqlSessionFactory == null){
+                /**
+                 *
+                 * 通过SqlSessionFactoryBuilder的build方法创建sqlSessionFactory工厂
+                 */
+                sqlSessionFactory=new SqlSessionFactoryBuilder().build(inputStream);
+            }
+        }
+        return sqlSessionFactory;
+    }
+
+
+    /**
+     * 创建SqlSession，根据SqlSessionFactory工厂的openSession方法创建一个SqlSession对象
+     *  SqlSession openSession();
+     *
+     * @return 返回一个SqlSession对象
+     */
+    public static SqlSession openSqlSession(){
+        if (sqlSessionFactory==null){
+            initSqlSessionFactory();
+            return sqlSessionFactory.openSession();
+        }else
+            return sqlSessionFactory.openSession();
+    }
+}
+
+/****************************************Bean**********************************************************************/
+package cn.icbrains.bean;
+
+/**
+ * Created by icbrains on 2017/8/2.
+ */
+public class Role {
+    private int id;
+    private String roleName;
+    private String note;
+
+    public Role(){
+        this.roleName="default";
+        this.note="no";
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+}
+/****************************************Mapper接口和XML配置文件**********************************************************************/
+package cn.icbrains.mapper;
+
+import cn.icbrains.bean.Role;
+
+/**
+ * Created by icbrains on 2017/8/2.
+ */
+public interface RoleMapper {
+    public Role getRoleById(int id);
+    public int insertRole(Role role);
+    public int deleteRoleById(int id);
+}
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.icbrains.mapper.RoleMapper">
+    <select id="getRoleById" parameterType="int" resultType="role">
+        SELECT id ,role_name,note FROM t_role WHERE id=#{id}
+    </select>
+    <insert id="insertRole" parameterType="role">
+        INSERT INTO t_role(role_name, note) VALUES (#{roleName},#{note})
+    </insert>
+    <delete id="deleteRoleById" parameterType="int">
+        DELETE FROM t_role WHERE id=#{id}
+    </delete>
+</mapper>
+/****************************************测试类**********************************************************************/
+package cn.icbrains.test;
+
+import cn.icbrains.bean.Role;
+import cn.icbrains.mapper.RoleMapper;
+import cn.icbrains.mybatis.MybatisTest;
+import org.apache.ibatis.session.SqlSession;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by icbrains on 2017/8/2.
+ */
+public class Test {
+    public static void main(String[] args){
+        Role role=new Role();
+        //查询
+        role=getRoles(24);
+        System.out.print("id= "+role.getId()+" roleName= "+role.getRoleName()+" note= "+role.getNote());
+        //添加
+//        role.setRoleName("李四LiSi?");
+//        role.setNote("我们是中国共产党的接班人，我们是伟大的程序员！！！???");
+//        if (insertRole(role)==0){
+//            System.out.println("添加失败！！！");
+//        }else
+//            System.out.println("添加成功！！！");
+
+        //删除
+//        if (deleteRole(14)==0){
+//            System.out.println("删除失败！！！");
+//        }else
+//            System.out.println("删除成功！！！");
+
+
+    }
+
+    /*
+        查询
+     */
+
+    /**
+     * 通过getRoles方法从数据库中读取一个ROle对象，然后返回；
+     *
+     * @param id
+     *        用于查询的ID
+     *
+     * @return 返回一个ROle对象
+     */
+    public static Role getRoles(int id){
+        SqlSession sqlSession=null;
+        Role role=new Role();
+        try {
+          sqlSession = MybatisTest.openSqlSession();
+          RoleMapper roleMapper=sqlSession.getMapper(RoleMapper.class);
+          role=roleMapper.getRoleById(id);
+          sqlSession.commit();
+
+        }catch (Exception e){
+            System.err.println(e.getMessage());
+            sqlSession.rollback();
+        }finally {
+            if (sqlSession != null){
+                sqlSession.close();
+            }
+        }
+
+        return role;
+    }
+
+    /*
+    添加
+     */
+    public static int insertRole(Role role){
+        SqlSession sqlSession=null;
+        int flag=0;
+        try {
+            sqlSession=MybatisTest.openSqlSession();
+            RoleMapper roleMapper=sqlSession.getMapper(RoleMapper.class);
+            flag=roleMapper.insertRole(role);
+            sqlSession.commit();
+        }catch (Exception e){
+            System.err.println(e.getMessage());
+            sqlSession.rollback();
+        }finally {
+            if (sqlSession != null){
+                sqlSession.close();
+            }
+        }
+        return flag;
+    }
+
+    /*
+    删除
+     */
+    public static int deleteRole(int id){
+        SqlSession sqlSession=null;
+        int flag=0;
+        try {
+            sqlSession=MybatisTest.openSqlSession();
+            RoleMapper roleMapper=sqlSession.getMapper(RoleMapper.class);
+            flag=roleMapper.deleteRoleById(id);
+            sqlSession.commit();
+        }catch (Exception e){
+            System.err.println(e.getMessage());
+            sqlSession.rollback();
+        }finally {
+            if (sqlSession != null){
+                sqlSession.close();
+            }
+        }
+
+        return flag;
+    }
+
+}
+
