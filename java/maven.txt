@@ -1,0 +1,75 @@
+/*这里包含了常见的maven引包的格式*/
+/*****************************junit4*******************************/
+<dependency>
+  <groupId>junit</groupId>
+  <artifactId>junit</artifactId>
+  <version>4.12</version>
+  <scope>test</scope>
+</dependency>
+
+/*****************************struts2-core*******************************/
+<dependency>
+    <groupId>org.apache.struts</groupId>
+    <artifactId>struts2-core</artifactId>
+    <version>2.5.12</version>
+</dependency>
+
+/*****************************struts2-spring-plugin*******************************/
+<dependency>
+    <groupId>org.apache.struts</groupId>
+    <artifactId>struts2-spring-plugin</artifactId>
+    <version>2.5.12</version>
+</dependency>
+
+/*****************************struts2-json-plugin*******************************/
+<dependency>
+    <groupId>org.apache.struts</groupId>
+    <artifactId>struts2-json-plugin</artifactId>
+    <version>2.5.12</version>
+</dependency>
+
+ps~:struts2-core和struts2-spring-plugin、struts2-json-plugin的version包括2.5.10.1 、2.3.33
+
+/*****************************struts-annotations*******************************/
+<dependency>
+    <groupId>org.apache.struts</groupId>
+    <artifactId>struts-annotations</artifactId>
+    <version>1.0.6</version>
+</dependency>
+ps~:struts-annotations的版本version包括1.0.6、1.0.5、1.0.4
+
+/*****************************hibernate-core*******************************/
+<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-core</artifactId>
+    <version>5.2.10.Final</version>
+</dependency>
+ps~:version 5.2.10...、5.1.9...、5.0.13...、4.3.11、4.3.10...
+
+/*****************************mybatis*******************************/
+<dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis</artifactId>
+    <version>3.4.4</version>
+</dependency>
+ps~:3.4.4 3.4.3 3.4.2 3.4.1......
+/*****************************mybatis-spring4*******************************/
+<dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis-spring</artifactId>
+    <version>1.3.1</version>
+</dependency>
+ps~:1.3.1 1.3.0 1.2.5~1.2.0
+
+/*****************************spring-webmvc*******************************/
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-webmvc</artifactId>
+    <version>5.0.0.RC3</version>
+</dependency>
+ps~:5.0.0.RC3~5.0.0.RC1  /5.0.0M5~5.0.0.M1 /4.3.10.RELEASE~4.3.1.RELEASE
+
+
+
+
+
