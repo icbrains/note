@@ -1,1 +1,100 @@
-一、mysql的数据类型
+1、mysql的数据类型
+2、mysql设置外键约束的命令：
+	①SET FOREIGN_KEY_CHECKS=0【关闭外键约束】
+	②SET FOREIGN_KEY_CHECKS=1【打开外键约束】
+	2.1、mysql中导致错误的语句
+		①主键不唯一
+		②不存在的外键
+		③列表值不合法
+		④无效的日期转换
+3.1、select子句
+	概括：select子句用于在所有可能的列中，选择查询结果集要包含哪些列
+	3.1.1、列的别名
+		如果表中的列名定义的十分简短并且含义模糊，可以为该列赋予新的标签。同样在结果集
+		中包含了根据表达式或者内建函数调用产生的列，也可以定义一个标签。通过select子句
+		中的每个元素后面增加列别名可以实现此目的。
+		【code】
+		<--------------直接写别名--------------->
+		SELECT em_id,
+		'ACTIVE' status,
+		em_id * 3.14159 empid_x_pi,
+		UPPER(lname) last_name_upper
+		FROM employee;
+		<---------------通过AS添加别名-------------->
+		SELECT em_id,
+		'ACTIVE' AS status,
+		em_id * 3.14159 AS empid_x_pi,
+		UPPER(lname) AS last_name_upper
+		FROM employee;
+	3.1.2、去除重复的列
+		在某些情况下查询可能会出现重复的行数据，distinct + 列名
+		【code】
+		SELECT DISTINCT em_id  
+			FROM account
+3.2、from子句
+	概述：form子句定义了查询中所使用的表，以及连接这些表的方式
+	3.2.1、表的概念
+		表存在三种类型：
+			永久表：create table子句创建的
+			临时表：子查询返回的表
+			虚拟表：create view 创建的视图
+		子查询产生的表
+			【code】
+			SELECT e.em_id,e.fname
+			FROM (SELECT em_id,fname,lname
+			FROM employee) e[定义的别名];
+		视图VIEW
+			视图是存储在数据字典中的查询，它的行为表现的像一个表，但是实际上并不拥有任何的数据，
+			当发出一个队视图的查询时，该查询会被绑定到视图定义上，以产生最终被执行的查询。
+	3.2.2、表连接
+	3.2.3  当以数据库别名
+		在进行多个表的查询中时，需要将这些表连接起来[join]
+		【code】
+		SELECT e.em_id,e.fname,e.lname,
+			a.em_id,a.cust_id,a.creat_account_date
+				FROM employee AS e  JOIN account a
+					WHERE e.em_id=a.em_id;
+			
+	3.2.4	where子句
+		概念：where子句用于在结果集中过滤不需要的行
+3.3、group by和having子句
+	SELECT a.cust_id,count(e.em_id) num_employee
+		FROM account a INNER JOIN employee e
+			ON a.em_id = e.em_id
+			GROUP BY a.cust_id
+			HAVING count(e.em_id)>1；
+3.4、order by子句
+	概念：order by子句用于对结果集的原始列数据或是根据列数据计算的表达式结果进行排序。
+	【code】
+	SELECT a.em_id,a.cust_id,a.creat_account_date
+		FROM account a
+			ORDER BY em_id DESC ;[desc 表示降序排列，asc表示升序排列]表示通过字段em_id进行降序排列
+	3.4.1、根据表达式排序
+	3.4.2、根据数字占位符排序
+		【code】
+		SELECT a.em_id,a.cust_id,a.creat_account_date
+			FROM account a
+				ORDER BY 2 DESC ;
+				上面的代码表示通过第二列进行降序排序【2代表cust_id】
+4、过滤
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
