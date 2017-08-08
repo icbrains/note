@@ -267,5 +267,4 @@
 				new DrawThread("““",account,800).start();
 			}
 		}
-æ≈°¢
 
