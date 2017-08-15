@@ -77,6 +77,29 @@
 				ORDER BY 2 DESC ;
 				上面的代码表示通过第二列进行降序排序【2代表cust_id】
 4、过滤
+	4.1、条件评估
+	where子句可能包含1个或多个条件，每个条件之间用操作符and和or分隔。
+		4.1.1、使用圆括号
+		如果where子句包含类3个或者更多条件，且同时使用类and和or操作符，那么就需要使用圆括号来表明意图。
+		4.1.2、使用not操作符
+		【code】
+		WHERE end_date IS NULL
+			AND NOT (title = 'Teller' OR start_date < '2017-08-15')
+			NOT 相当于java等编程语言的！操作符
+	4.2、构建条件
+	条件通常由1个或多个包含1个到多个操作符的表达式构成。表达式的类型有：
+		①数字
+		②表或者视图中的列
+		③字符串
+		④内建函数，比如函数concat()
+		⑤子查询
+		⑥表达式列表(如'Teller','Head Teller','Operations Management')
+		⑦比较操作符：= != < > LIKE IN BETWEEN
+		⑧算数操作符：+ - * /
+	4.3、条件类型
+			4.3.1、相等条件【column=expression】
+				   不等条件【column！=expression或者column<>expression任选一种】
+			4.3.2、范围条件
 	
 		
 		
