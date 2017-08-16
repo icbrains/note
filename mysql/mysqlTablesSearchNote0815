@@ -1,0 +1,27 @@
+５、多表查询
+	５．１、什么是连接：一个表的外键是另一个表的主键，而这个外键就是连接两个表的关键
+		５．１．１、笛卡尔积
+			当没有指定两个表之间的连接关系，直接使用ｊｏｉｎ将两个表连接起来，此时数据库服务器
+			就会产生笛卡尔积，这种连接被称之为交叉连接。
+			【ｃｏｄｅ】
+			SELECT e.em_l_name,e.em_city, w.work_location
+ 				 FROM em e JOIN work w ;
+		５．１．２、内连接
+			使用ＯＮ关键字来指定两个表的连接方式，就如下面的示例；
+			ＯＮ后面的表达式表示当前面的e.em_id指定一个数的时候，此时就会拿着这个数去表ｗｏｒｋ里面查找work_id等于这个数的行
+			SELECT e.em_f_name,e.em_l_name,w.work_species
+  				FROM em e JOIN work w
+    				ON e.em_id=w.work_id;
+	５．2、连接三个或者更多的表
+			SELECT e.em_f_name,e.em_l_name,w.work_species,a.ac_code,a.ac_type
+  				FROM em e INNER JOIN work w
+    				ON e.em_id=w.work_id
+    				INNER JOIN account a
+    				ON e.em_id=a.pu_id
+    				WHERE a.ac_code='A';
+		5.2.1、将子查询结果作为查询表
+	5.3、自连接
+		顾明思议，就是表自身的一个外键指向主键的列
+	5.4、相等和不等连接
+	5.5、连接条件和过滤条件
+		on后面的表示连接条件，where后面的表示过滤条件
