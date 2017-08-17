@@ -69,5 +69,13 @@ working directory表示在电脑中看到的目录.
 
 	命令git tag可以查看所有标签。
 21)搭建git服务器：
-22)shixun
+22)远程仓库的操作
+	git remote [-v可选] 查看当前的远程仓库
+	git remote add 添加远程仓库
+	git fetch url[remote-name] 从指定的仓库中抓取数据
+	git  push remote-name branch 推送数据到远程仓库
+	git  git remote show remote-name 查看远程仓库的信息
+	git  pull 抓取远程仓库的数据合并到本地
+	git  remote rename old-name new-name 重命名远程仓库
+	git  remote rm remote-name 删除远程仓库
 	
