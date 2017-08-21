@@ -1,123 +1,102 @@
-1¡¢mysqlµÄÊý¾ÝÀàÐÍ
-2¡¢mysqlÉèÖÃÍâ¼üÔ¼ÊøµÄÃüÁî£º
-	¢ÙSET FOREIGN_KEY_CHECKS=0¡¾¹Ø±ÕÍâ¼üÔ¼Êø¡¿
-	¢ÚSET FOREIGN_KEY_CHECKS=1¡¾´ò¿ªÍâ¼üÔ¼Êø¡¿
-	2.1¡¢mysqlÖÐµ¼ÖÂ´íÎóµÄÓï¾ä
-		¢ÙÖ÷¼ü²»Î¨Ò»
-		¢Ú²»´æÔÚµÄÍâ¼ü
-		¢ÛÁÐ±íÖµ²»ºÏ·¨
-		¢ÜÎÞÐ§µÄÈÕÆÚ×ª»»
-3.1¡¢select×Ó¾ä
-	¸ÅÀ¨£ºselect×Ó¾äÓÃÓÚÔÚËùÓÐ¿ÉÄÜµÄÁÐÖÐ£¬Ñ¡Ôñ²éÑ¯½á¹û¼¯Òª°üº¬ÄÄÐ©ÁÐ
-	3.1.1¡¢ÁÐµÄ±ðÃû
-		Èç¹û±íÖÐµÄÁÐÃû¶¨ÒåµÄÊ®·Ö¼ò¶Ì²¢ÇÒº¬ÒåÄ£ºý£¬¿ÉÒÔÎª¸ÃÁÐ¸³ÓèÐÂµÄ±êÇ©¡£Í¬ÑùÔÚ½á¹û¼¯
-		ÖÐ°üº¬ÁË¸ù¾Ý±í´ïÊ½»òÕßÄÚ½¨º¯Êýµ÷ÓÃ²úÉúµÄÁÐ£¬Ò²¿ÉÒÔ¶¨ÒåÒ»¸ö±êÇ©¡£Í¨¹ýselect×Ó¾ä
-		ÖÐµÄÃ¿¸öÔªËØºóÃæÔö¼ÓÁÐ±ðÃû¿ÉÒÔÊµÏÖ´ËÄ¿µÄ¡£
-		¡¾code¡¿
-		<--------------Ö±½ÓÐ´±ðÃû--------------->
+1ã€mysqlçš„æ•°æ®ç±»åž‹
+2ã€mysqlè®¾ç½®å¤–é”®çº¦æŸçš„å‘½ä»¤ï¼š
+	â‘ SET FOREIGN_KEY_CHECKS=0ã€å…³é—­å¤–é”®çº¦æŸã€‘
+	â‘¡SET FOREIGN_KEY_CHECKS=1ã€æ‰“å¼€å¤–é”®çº¦æŸã€‘
+	2.1ã€mysqlä¸­å¯¼è‡´é”™è¯¯çš„è¯­å¥
+		â‘ ä¸»é”®ä¸å”¯ä¸€
+		â‘¡ä¸å­˜åœ¨çš„å¤–é”®
+		â‘¢åˆ—è¡¨å€¼ä¸åˆæ³•
+		â‘£æ— æ•ˆçš„æ—¥æœŸè½¬æ¢
+3.1ã€selectå­å¥
+	æ¦‚æ‹¬ï¼šselectå­å¥ç”¨äºŽåœ¨æ‰€æœ‰å¯èƒ½çš„åˆ—ä¸­ï¼Œé€‰æ‹©æŸ¥è¯¢ç»“æžœé›†è¦åŒ…å«å“ªäº›åˆ—
+	3.1.1ã€åˆ—çš„åˆ«å
+		å¦‚æžœè¡¨ä¸­çš„åˆ—åå®šä¹‰çš„ååˆ†ç®€çŸ­å¹¶ä¸”å«ä¹‰æ¨¡ç³Šï¼Œå¯ä»¥ä¸ºè¯¥åˆ—èµ‹äºˆæ–°çš„æ ‡ç­¾ã€‚åŒæ ·åœ¨ç»“æžœé›†
+		ä¸­åŒ…å«äº†æ ¹æ®è¡¨è¾¾å¼æˆ–è€…å†…å»ºå‡½æ•°è°ƒç”¨äº§ç”Ÿçš„åˆ—ï¼Œä¹Ÿå¯ä»¥å®šä¹‰ä¸€ä¸ªæ ‡ç­¾ã€‚é€šè¿‡selectå­å¥
+		ä¸­çš„æ¯ä¸ªå…ƒç´ åŽé¢å¢žåŠ åˆ—åˆ«åå¯ä»¥å®žçŽ°æ­¤ç›®çš„ã€‚
+		ã€codeã€‘
+		<--------------ç›´æŽ¥å†™åˆ«å--------------->
 		SELECT em_id,
 		'ACTIVE' status,
 		em_id * 3.14159 empid_x_pi,
 		UPPER(lname) last_name_upper
 		FROM employee;
-		<---------------Í¨¹ýASÌí¼Ó±ðÃû-------------->
+		<---------------é€šè¿‡ASæ·»åŠ åˆ«å-------------->
 		SELECT em_id,
 		'ACTIVE' AS status,
 		em_id * 3.14159 AS empid_x_pi,
 		UPPER(lname) AS last_name_upper
 		FROM employee;
-	3.1.2¡¢È¥³ýÖØ¸´µÄÁÐ
-		ÔÚÄ³Ð©Çé¿öÏÂ²éÑ¯¿ÉÄÜ»á³öÏÖÖØ¸´µÄÐÐÊý¾Ý£¬distinct + ÁÐÃû
-		¡¾code¡¿
+	3.1.2ã€åŽ»é™¤é‡å¤çš„åˆ—
+		åœ¨æŸäº›æƒ…å†µä¸‹æŸ¥è¯¢å¯èƒ½ä¼šå‡ºçŽ°é‡å¤çš„è¡Œæ•°æ®ï¼Œdistinct + åˆ—å
+		ã€codeã€‘
 		SELECT DISTINCT em_id  
 			FROM account
-3.2¡¢from×Ó¾ä
-	¸ÅÊö£ºform×Ó¾ä¶¨ÒåÁË²éÑ¯ÖÐËùÊ¹ÓÃµÄ±í£¬ÒÔ¼°Á¬½ÓÕâÐ©±íµÄ·½Ê½
-	3.2.1¡¢±íµÄ¸ÅÄî
-		±í´æÔÚÈýÖÖÀàÐÍ£º
-			ÓÀ¾Ã±í£ºcreate table×Ó¾ä´´½¨µÄ
-			ÁÙÊ±±í£º×Ó²éÑ¯·µ»ØµÄ±í
-			ÐéÄâ±í£ºcreate view ´´½¨µÄÊÓÍ¼
-		×Ó²éÑ¯²úÉúµÄ±í
-			¡¾code¡¿
+3.2ã€fromå­å¥
+	æ¦‚è¿°ï¼šformå­å¥å®šä¹‰äº†æŸ¥è¯¢ä¸­æ‰€ä½¿ç”¨çš„è¡¨ï¼Œä»¥åŠè¿žæŽ¥è¿™äº›è¡¨çš„æ–¹å¼
+	3.2.1ã€è¡¨çš„æ¦‚å¿µ
+		è¡¨å­˜åœ¨ä¸‰ç§ç±»åž‹ï¼š
+			æ°¸ä¹…è¡¨ï¼šcreate tableå­å¥åˆ›å»ºçš„
+			ä¸´æ—¶è¡¨ï¼šå­æŸ¥è¯¢è¿”å›žçš„è¡¨
+			è™šæ‹Ÿè¡¨ï¼šcreate view åˆ›å»ºçš„è§†å›¾
+		å­æŸ¥è¯¢äº§ç”Ÿçš„è¡¨
+			ã€codeã€‘
 			SELECT e.em_id,e.fname
 			FROM (SELECT em_id,fname,lname
-			FROM employee) e[¶¨ÒåµÄ±ðÃû];
-		ÊÓÍ¼VIEW
-			ÊÓÍ¼ÊÇ´æ´¢ÔÚÊý¾Ý×ÖµäÖÐµÄ²éÑ¯£¬ËüµÄÐÐÎª±íÏÖµÄÏñÒ»¸ö±í£¬µ«ÊÇÊµ¼ÊÉÏ²¢²»ÓµÓÐÈÎºÎµÄÊý¾Ý£¬
-			µ±·¢³öÒ»¸ö¶ÓÊÓÍ¼µÄ²éÑ¯Ê±£¬¸Ã²éÑ¯»á±»°ó¶¨µ½ÊÓÍ¼¶¨ÒåÉÏ£¬ÒÔ²úÉú×îÖÕ±»Ö´ÐÐµÄ²éÑ¯¡£
-	3.2.2¡¢±íÁ¬½Ó
-	3.2.3  µ±ÒÔÊý¾Ý¿â±ðÃû
-		ÔÚ½øÐÐ¶à¸ö±íµÄ²éÑ¯ÖÐÊ±£¬ÐèÒª½«ÕâÐ©±íÁ¬½ÓÆðÀ´[join]
-		¡¾code¡¿
+			FROM employee) e[å®šä¹‰çš„åˆ«å];
+		è§†å›¾VIEW
+			è§†å›¾æ˜¯å­˜å‚¨åœ¨æ•°æ®å­—å…¸ä¸­çš„æŸ¥è¯¢ï¼Œå®ƒçš„è¡Œä¸ºè¡¨çŽ°çš„åƒä¸€ä¸ªè¡¨ï¼Œä½†æ˜¯å®žé™…ä¸Šå¹¶ä¸æ‹¥æœ‰ä»»ä½•çš„æ•°æ®ï¼Œ
+			å½“å‘å‡ºä¸€ä¸ªé˜Ÿè§†å›¾çš„æŸ¥è¯¢æ—¶ï¼Œè¯¥æŸ¥è¯¢ä¼šè¢«ç»‘å®šåˆ°è§†å›¾å®šä¹‰ä¸Šï¼Œä»¥äº§ç”Ÿæœ€ç»ˆè¢«æ‰§è¡Œçš„æŸ¥è¯¢ã€‚
+	3.2.2ã€è¡¨è¿žæŽ¥
+	3.2.3  å½“ä»¥æ•°æ®åº“åˆ«å
+		åœ¨è¿›è¡Œå¤šä¸ªè¡¨çš„æŸ¥è¯¢ä¸­æ—¶ï¼Œéœ€è¦å°†è¿™äº›è¡¨è¿žæŽ¥èµ·æ¥[join]
+		ã€codeã€‘
 		SELECT e.em_id,e.fname,e.lname,
 			a.em_id,a.cust_id,a.creat_account_date
 				FROM employee AS e  JOIN account a
 					WHERE e.em_id=a.em_id;
 			
-	3.2.4	where×Ó¾ä
-		¸ÅÄî£ºwhere×Ó¾äÓÃÓÚÔÚ½á¹û¼¯ÖÐ¹ýÂË²»ÐèÒªµÄÐÐ
-3.3¡¢group byºÍhaving×Ó¾ä
+	3.2.4	whereå­å¥
+		æ¦‚å¿µï¼šwhereå­å¥ç”¨äºŽåœ¨ç»“æžœé›†ä¸­è¿‡æ»¤ä¸éœ€è¦çš„è¡Œ
+3.3ã€group byå’Œhavingå­å¥
 	SELECT a.cust_id,count(e.em_id) num_employee
 		FROM account a INNER JOIN employee e
 			ON a.em_id = e.em_id
 			GROUP BY a.cust_id
-			HAVING count(e.em_id)>1£»
-3.4¡¢order by×Ó¾ä
-	¸ÅÄî£ºorder by×Ó¾äÓÃÓÚ¶Ô½á¹û¼¯µÄÔ­Ê¼ÁÐÊý¾Ý»òÊÇ¸ù¾ÝÁÐÊý¾Ý¼ÆËãµÄ±í´ïÊ½½á¹û½øÐÐÅÅÐò¡£
-	¡¾code¡¿
+			HAVING count(e.em_id)>1ï¼›
+3.4ã€order byå­å¥
+	æ¦‚å¿µï¼šorder byå­å¥ç”¨äºŽå¯¹ç»“æžœé›†çš„åŽŸå§‹åˆ—æ•°æ®æˆ–æ˜¯æ ¹æ®åˆ—æ•°æ®è®¡ç®—çš„è¡¨è¾¾å¼ç»“æžœè¿›è¡ŒæŽ’åºã€‚
+	ã€codeã€‘
 	SELECT a.em_id,a.cust_id,a.creat_account_date
 		FROM account a
-			ORDER BY em_id DESC ;[desc ±íÊ¾½µÐòÅÅÁÐ£¬asc±íÊ¾ÉýÐòÅÅÁÐ]±íÊ¾Í¨¹ý×Ö¶Îem_id½øÐÐ½µÐòÅÅÁÐ
-	3.4.1¡¢¸ù¾Ý±í´ïÊ½ÅÅÐò
-	3.4.2¡¢¸ù¾ÝÊý×ÖÕ¼Î»·ûÅÅÐò
-		¡¾code¡¿
+			ORDER BY em_id DESC ;[desc è¡¨ç¤ºé™åºæŽ’åˆ—ï¼Œascè¡¨ç¤ºå‡åºæŽ’åˆ—]è¡¨ç¤ºé€šè¿‡å­—æ®µem_idè¿›è¡Œé™åºæŽ’åˆ—
+	3.4.1ã€æ ¹æ®è¡¨è¾¾å¼æŽ’åº
+	3.4.2ã€æ ¹æ®æ•°å­—å ä½ç¬¦æŽ’åº
+		ã€codeã€‘
 		SELECT a.em_id,a.cust_id,a.creat_account_date
 			FROM account a
 				ORDER BY 2 DESC ;
-				ÉÏÃæµÄ´úÂë±íÊ¾Í¨¹ýµÚ¶þÁÐ½øÐÐ½µÐòÅÅÐò¡¾2´ú±ícust_id¡¿
-4¡¢¹ýÂË
-	4.1¡¢Ìõ¼þÆÀ¹À
-	where×Ó¾ä¿ÉÄÜ°üº¬1¸ö»ò¶à¸öÌõ¼þ£¬Ã¿¸öÌõ¼þÖ®¼äÓÃ²Ù×÷·ûandºÍor·Ö¸ô¡£
-		4.1.1¡¢Ê¹ÓÃÔ²À¨ºÅ
-		Èç¹ûwhere×Ó¾ä°üº¬Àà3¸ö»òÕß¸ü¶àÌõ¼þ£¬ÇÒÍ¬Ê±Ê¹ÓÃÀàandºÍor²Ù×÷·û£¬ÄÇÃ´¾ÍÐèÒªÊ¹ÓÃÔ²À¨ºÅÀ´±íÃ÷ÒâÍ¼¡£
-		4.1.2¡¢Ê¹ÓÃnot²Ù×÷·û
-		¡¾code¡¿
+				ä¸Šé¢çš„ä»£ç è¡¨ç¤ºé€šè¿‡ç¬¬äºŒåˆ—è¿›è¡Œé™åºæŽ’åºã€2ä»£è¡¨cust_idã€‘
+4ã€è¿‡æ»¤
+	4.1ã€æ¡ä»¶è¯„ä¼°
+	whereå­å¥å¯èƒ½åŒ…å«1ä¸ªæˆ–å¤šä¸ªæ¡ä»¶ï¼Œæ¯ä¸ªæ¡ä»¶ä¹‹é—´ç”¨æ“ä½œç¬¦andå’Œoråˆ†éš”ã€‚
+		4.1.1ã€ä½¿ç”¨åœ†æ‹¬å·
+		å¦‚æžœwhereå­å¥åŒ…å«ç±»3ä¸ªæˆ–è€…æ›´å¤šæ¡ä»¶ï¼Œä¸”åŒæ—¶ä½¿ç”¨ç±»andå’Œoræ“ä½œç¬¦ï¼Œé‚£ä¹ˆå°±éœ€è¦ä½¿ç”¨åœ†æ‹¬å·æ¥è¡¨æ˜Žæ„å›¾ã€‚
+		4.1.2ã€ä½¿ç”¨notæ“ä½œç¬¦
+		ã€codeã€‘
 		WHERE end_date IS NULL
 			AND NOT (title = 'Teller' OR start_date < '2017-08-15')
-			NOT Ïàµ±ÓÚjavaµÈ±à³ÌÓïÑÔµÄ£¡²Ù×÷·û
-	4.2¡¢¹¹½¨Ìõ¼þ
-	Ìõ¼þÍ¨³£ÓÉ1¸ö»ò¶à¸ö°üº¬1¸öµ½¶à¸ö²Ù×÷·ûµÄ±í´ïÊ½¹¹³É¡£±í´ïÊ½µÄÀàÐÍÓÐ£º
-		¢ÙÊý×Ö
-		¢Ú±í»òÕßÊÓÍ¼ÖÐµÄÁÐ
-		¢Û×Ö·û´®
-		¢ÜÄÚ½¨º¯Êý£¬±ÈÈçº¯Êýconcat()
-		¢Ý×Ó²éÑ¯
-		¢Þ±í´ïÊ½ÁÐ±í(Èç'Teller','Head Teller','Operations Management')
-		¢ß±È½Ï²Ù×÷·û£º= != < > LIKE IN BETWEEN
-		¢àËãÊý²Ù×÷·û£º+ - * /
-	4.3¡¢Ìõ¼þÀàÐÍ
-			4.3.1¡¢ÏàµÈÌõ¼þ¡¾column=expression¡¿
-				   ²»µÈÌõ¼þ¡¾column£¡=expression»òÕßcolumn<>expressionÈÎÑ¡Ò»ÖÖ¡¿
-			4.3.2¡¢·¶Î§Ìõ¼þ
-	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+			NOT ç›¸å½“äºŽjavaç­‰ç¼–ç¨‹è¯­è¨€çš„ï¼æ“ä½œç¬¦
+	4.2ã€æž„å»ºæ¡ä»¶
+	æ¡ä»¶é€šå¸¸ç”±1ä¸ªæˆ–å¤šä¸ªåŒ…å«1ä¸ªåˆ°å¤šä¸ªæ“ä½œç¬¦çš„è¡¨è¾¾å¼æž„æˆã€‚è¡¨è¾¾å¼çš„ç±»åž‹æœ‰ï¼š
+		â‘ æ•°å­—
+		â‘¡è¡¨æˆ–è€…è§†å›¾ä¸­çš„åˆ—
+		â‘¢å­—ç¬¦ä¸²
+		â‘£å†…å»ºå‡½æ•°ï¼Œæ¯”å¦‚å‡½æ•°concat()
+		â‘¤å­æŸ¥è¯¢
+		â‘¥è¡¨è¾¾å¼åˆ—è¡¨(å¦‚'Teller','Head Teller','Operations Management')
+		â‘¦æ¯”è¾ƒæ“ä½œç¬¦ï¼š= != < > LIKE IN BETWEEN
+		â‘§ç®—æ•°æ“ä½œç¬¦ï¼š+ - * /
+	4.3ã€æ¡ä»¶ç±»åž‹
+			4.3.1ã€ç›¸ç­‰æ¡ä»¶ã€column=expressionã€‘
+				   ä¸ç­‰æ¡ä»¶ã€columnï¼=expressionæˆ–è€…column<>expressionä»»é€‰ä¸€ç§ã€‘
+			4.3.2ã€èŒƒå›´æ¡ä»¶		
