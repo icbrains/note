@@ -1,0 +1,4 @@
+JavaScript中的location是window对象的属性，document也有一个location属性，而且该属性也引用到Location对象
+Location对象表示当前窗口中显示的文档的URL
+setTimeout和clearTimeout是一对方法，前者表示隔一段时间然后执行代码，后者表示取消这个设置
+setInterval和clearInterval也是一对方法，功能跟setTimeout没什么异样，他表示隔一段时间调用某一段代码

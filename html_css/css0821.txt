@@ -1,0 +1,11 @@
+﻿一、css中的选择器：
+	后代选择器：父 子【父和子之间使用空格分开】
+	子元素选择器：father>son【以大于号分隔】
+	相邻兄弟选择器：brothers1+brothers2【以加号分隔】
+	普通兄弟选择器：brothers~brothers【以破折号分隔】
+二、css中的伪类
+	:link
+	:visited
+	:hover
+	:active
+	ps~:在css定义中，hover必须放在link或者visited之后才有效，active在hover之后才有效
