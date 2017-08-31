@@ -1,0 +1,38 @@
+一、盒子边框
+	边框的三个属性：
+		宽度 (border-width) 可以使用thin、medium、thick等文本值，也可以使用百分值和和负值之外的任何绝对值
+		样式 (border-style) 有none，hidden、dotted、dashed、solid、double、groove、ridge、inset、outset
+		属性 (border-color) 可以使用任意的颜色值，包括RGB、HSL，十六进制颜色值
+二、叠加外边距
+	垂直方向上的外边距会叠加，实际的宽度取决于较大的一个数，比如第一个边框的下边距是40，第二个的上边距是20，
+	他们实际之间的边距是40+20吗？答案显然是NO，因为垂方向上的边距是会叠加的，所以他们之间的时间距离是40
+三、图片和文字的浮动，文字是会绕开浮动的图片的
+四、围住浮动元素的三种方法
+	1、为父级元素添加overflow:hidden样式，强制父级元素包含浮动子元素
+	2、让包含浮动的子元素的父级元素也浮动起来【浮动父元素之后，不管子元素是否浮动，它都会紧紧地包围住它的子
+	元素】
+	3、添加非浮动的清除元素
+		①在父级元素的最后加入一个未浮动的子元素
+		②给父级元素添加一个类，然后.class:after{content:".";display:block;height:0;visibility:hidden;clear:both}
+		content表示添加一个非空的元素，因为句点是最小的内容，所以最为内容添加
+五、定位[static absolute relative fixed]
+		top bottom left right 四个属性是用来定义元素与原来在文档流中的位置的变化；
+		relative:需要注意的是，元素位置发生变化之后，原来占据的位置还存在，不会被其他元素填充
+		absolute:绝对定位和relative、static绝对不一样，它是将元素从文档流中完全拿出来,absolute 默认是相对body顶级父元素定位的
+		如果需要定义它的父元素作为他定位的对象，将其父元素的position设置成relative就OK
+		static:默认的定位方式
+		fixed:与absolute相似，都是从原先的文档流中完全取出，不占据原先的空间，但是fixed是相对于浏览器的窗口或者手持设备的屏幕来定位的，所以当
+		页面滚动的时候他并不会发生位置变化，只有当browser窗口变化的时候，它的位置才会发生变化。
+六、显示属性
+	display：block/inline;[块级或者行级]
+七、背景[需要注意的是：color是前景色，既影响文本颜色，还影响边框颜色]
+	属性：
+	background-color:
+	background-image:
+	background-repeat:repeat-x repeat-y no-repeat，space【防止图片被裁剪，使用图片间的空白来适应背景区域】、round【防止图片被裁剪，通过调整图片的大小来适应背景区域】
+	background-position:center left right top bottom 默认图片的中心点个元素的中心点对齐，都在屏幕的左上角，他们两两任意组合就可以设定图片的起点了
+	background-size: 背景尺寸【contain 缩放图片，使其恰好适应于背景区域 cover拉大图片，使其完全填满背景区域】
+	background-attachment: 背景粘附【scroll，fixed】
+	background-clip:
+	background-orgin:
+	background-break:
