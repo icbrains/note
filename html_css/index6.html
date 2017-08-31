@@ -1,0 +1,184 @@
+<! DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>nav</title>
+	<style>
+		/*消除默认的margin和padding*/
+		body{
+			margin:0;
+			padding:0;
+		}
+		/*设置导航的字体样式*/
+		.multi_drop_menu{
+			font:1em helvetica,arial,sans-serif;
+		}
+		.multi_drop_menu a{
+			text-decoration:none;
+			/*让连接充满列表项*/
+			display:block;
+			color:#555;
+			background-color:#ff6666;
+			/*连接的内边距*/
+			padding:0.2em 1em;
+			/*分割线的宽度*/
+			border-width:3px;
+			/*可以有颜色，也可以透明*/
+			border-color:transparent;
+		}
+		/*鼠标悬停的样式*/
+		.multi_drop_menu a:hover{
+			color:#FFFFFF;
+			background-color:#6699ff;
+		}
+		/*添加功能样式*/
+		.multi_drop_menu *{
+			margin:0;
+			padding:0;
+		}
+		/*强制ul包含li*/
+		.multi_drop_menu ul{
+			float:left;
+		}
+		/*将父菜单设置成relative，充当子菜单的参照对象*/
+		.multi_drop_menu li{
+			float:left;
+			list-style-type:none;
+			position:relative;
+		}
+		/*让链接充满列表项*/
+		.multi_drop_menu li a{
+			display:block;
+			/*给每一个链接添加一个右边框*/
+			border-right-style:solid;
+			/*背景只出现在内边距区域后面
+			background-clip:padding-box;*/
+			text-decoration:none;
+		}
+		/*一级菜单中的最后一个菜单项消除右边框*/
+		.multi_drop_menu li:last-child{
+			border-right-style:none;
+		}
+		/*临时隐藏低级菜单，为了显示一级菜单的效果
+		.multi_drop_menu li ul{
+			display:none;
+		}
+		*/
+		/*添加二级菜单的样式*/
+		/*二级菜单的宽度*/
+		.multi_drop_menu li ul{
+			width:10em;
+		}
+		.multi_drop_menu li li a{
+			/*除去右边框*/
+			border-right-style:none;
+			/*添加上边框*/
+			border-top-style:solid;
+		}
+		/*菜单的功能样式*/
+		.multi_drop_menu li ul{
+			/*相对于父菜单的定位*/
+			position:absolute;
+			/*左边和父元素对齐*/
+			left:0;
+			/*顶边于父菜单项底边对齐*/
+			top:100%;
+		}
+		.multi_drop_menu li li{
+			/*停止浮动*/
+			float:none;
+		}
+		.multi_drop_menu li li ul{
+			display:none;
+		}
+		/*为二级菜单添加响应的鼠标事件*/
+		/*刚开始二级菜单是处于隐藏状态的*/
+		.multi_drop_menu li ul{
+			display:none;
+			/*相对于父菜单的定位*/
+			position:absolute;
+			/*左边和父元素对齐*/
+			left:0;
+			/*顶边于父菜单项底边对齐*/
+			top:100%;
+			
+		}
+		/*当鼠标悬停在二级菜单上的时候，显示二级菜单*/
+		.multi_drop_menu li:hover>ul{
+			display:block;
+		}
+		
+		/*添加三级菜单的样式*/
+		
+		.multi_drop_menu li li ul{
+			/*相对于父元素的定位*/
+			position:absolute;
+			/*与父元素的右边对齐*/
+			left:100%;
+			/*与父元素的顶端对齐*/
+			top:0;
+			
+		}
+		/*以上是菜单水平显示的样式，下面新添加的vertical类是为了让菜单在垂直方向上使用*/
+		.multi_drop_menu.vertical{
+			width:8em;
+		}
+		/*为垂直方向上的菜单连接消除右边框并且添加上边框*/
+		.multi_drop_menu.vertical li a{
+			border-right-style:none;
+			border-top-style:solid;
+		}
+		.multi_drop_menu.vertical li li a{
+			border-left-style:solid;
+		}
+		/*停止原先的ul li的浮动*/
+		.multi_drop_menu.vertical ul,
+		.multi_drop_menu.vertical li{
+			float:none;
+		}
+		.multi_drop_menu.vertical li ul{
+			/*子菜单的右边和父元素对齐*/
+			left:100%;
+			/*顶部与上一级菜单项顶边对齐*/
+			top:0;
+		}
+		.multi_drop_menu li{
+			border:1px solid #33ccff;
+			border-radius:3px;
+		}
+		
+	</style>
+</head>
+<body>
+	<nav class="multi_drop_menu vertical">
+		<!--一级菜单-->
+		<ul>
+			<li><a href="#">首页</a></li>
+			<li><a href="#">联系我们</a></li>
+			<li><a href="#">java训练营</a></li>
+			<li><a href="#">Python专题讲座</a></li>
+			<li><a href="#">框架</a>
+				<!--二级菜单开始-->
+				<ul>
+					<li><a href="#">mybatis</a></li>
+					<li><a href="#">struts</a></li>
+					<li><a href="#">hibernate</a></li>
+					<li><a href="#">Spring</a>
+						<!--三级菜单开始-->
+						<ul>
+							<li><a href="#">Spring MVC</a></li>
+							<li><a href="#">Spring Boot</a></li>
+							<li><a href="#">Spring IOC</a></li>
+						</ul>
+					</li>
+					<!--三级菜单结束-->
+					<li><a href="#">Redis缓存机制</a></li>
+				</ul>
+			</li>
+			<!--二级菜单结束-->
+		</ul>
+		<!--一级菜单结束-->
+	</nav>
+</body>
+</html>
+	
