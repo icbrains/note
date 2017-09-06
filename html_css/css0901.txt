@@ -1,0 +1,7 @@
+css3的过度效果属性：
+	一、transition-property:过渡的css属性名，例如color width等
+	二、transition-duration：过渡的持续时间，以秒s 或者毫秒ms来设定
+	三、transition-timing-function：过渡的速调函数，决定动画效果是否平滑，是先慢后快，还是先快后慢，
+			ease-in ease-out ease-in-out linear(默认值)
+	四、transition-delay：过渡开始前的延迟时间，s或者ms来设定
+	五、transition：是过渡的简写
