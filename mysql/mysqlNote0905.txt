@@ -1,0 +1,31 @@
+分组与聚集
+	分组group by，注意：不能对where使用聚合函数评估，对于group by过滤，用该使用having
+	聚合函数：它是对某个分组的所有行执行特定的操作。
+		Max() 返回集合中的最大值
+		Min() 返回集合中的最小值
+		Avg() 返回集合中的平均值
+		Sum() 返回集合中所有值的和
+		Count() 返回集合中值的个数
+		隐式分组/显式分组
+			隐式：SELECT count(*) all_count FROM work;表示一个隐式分组，包含查询返回的所有行
+			显式：SELECT work_id,avg(salary) AS AVGSalary FROM work GROUP BY work_id;这里表示查询每个员工的员工号和所有员工的平均工资，当
+			没有显式group by的时候，这个sql会报错误，所以此时必须显式的给出group by 以及要查询的字段名
+		对独立值计数
+			SELECT count(work_id) all_count FROM work;表示对所有work_id 进行计数，在这种情况下与SELECT count(*) all_count FROM work;的结果相同；需要注意的是，他会把每个重复的
+			work_id叠加起来，如果需要计算不重复的work_id ，则需要用到distinct，如下所示：
+			SELECT count(DISTINCT work_id) all_count FROM work;
+		使用表达式作为聚合函数的参数
+			SELECT MAX(salary-beforesalary) salary FROM work;表示每个月的工资减去预支的工资，然后得到实际的工资的最大值，MAX的参数是一个表达式
+		如何处理null值
+			聚合函数遇到null的值的时候，应该考虑他是否影响我们的结果，如果影响我们的结果，就需要对null采取相应的措施
+			count(*)和count(某一列)这两种计数的区别遇到null结果，前者是计算整个表中的记录数量，所以null不影响他的结果，但是对于后者来说，他是根据某一列进行计数当他遇到此列有
+			null值的时候，会自动忽略掉此行
+	产生分组
+		对单列分组
+			SELECT work_id,avg(salary) AS AVGSalary FROM work GROUP BY work_id;
+		对多列分组
+			SELECT work_id,dept_id avg(salary) AS AVGSalary FROM work GROUP BY work_id,dept_id;
+		根据表达式分组
+			SELECT year,count(*) how_many FROM employee GROUP BY EXTRACT(YEAR FROM start_date) year;
+		过滤分组
+			where 字段限制 group by having +聚合函数；where的条件是在group by之前执行的
