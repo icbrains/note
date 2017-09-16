@@ -1,0 +1,12 @@
+mybatis中正确理解SqlSessionFactoryBuilder、SqlSessionFactoy、SqlSession、Mapper
+	1、SqlSessionFactoryBuilder
+		它的作用是用来创建SqlSessionFactory的实例，一旦创建之后，它的作用及完结了，失去了存在的意义，个时候就应该废弃它，及时回收资源
+		它的声明周期只存在于方法的局部；
+	2、SqlSessionFactory
+		它的作用是创建SqlSession实例，对于SqlSession来说他就好像是JDBC中的Connection，因此它存在于mybatis应用的整个生命周期中，但是为了
+		保护资源，我们应该将它设计成单例模式，所以对于同一个数据库来说，应该尽量存在一个SqlSessionFactory
+	3、SqlSession
+		相当于JDBC中的Connection对象，它的生命周期应该是在请求数据库处理事务的过程中。它是一个线程不安全的对象，对于多线程的应用中，我们
+		应该保证其线程安全操作
+	4、Mapper
+		它的作用是发送SQL，然后返回程序员想要的结果，因此他应该在一个SqlSession事物方法之内，是一个方法级别的东西。
