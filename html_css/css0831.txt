@@ -1,0 +1,173 @@
+css文本属性
+	一、text-indent：缩进，主要用于段落的首行进行，值可以是正值也可以是负值
+	二、letter-spacing：字符间的间距，适用于汉子和英文字母等
+	三、word-spacing：单词间的间距
+	四、line-height：文本的行高
+	五、text-decoration：文本的装饰，包括none、overline、underline、line-through
+	六、text-align：文本的对齐方式，包括center、left、right、justify[左右对齐]
+	七、vertical-align：垂直对齐，只适用于同一行内，一般用于下标和上标等效果
+	八、text-transform：none、uppercase，lowercase,capitalize
+css排版
+	一、使用css模拟table的效果
+		将display设置成table-cell,此时不需要浮动就可以将块级元素显示在一行，设置成功之后，
+		默认的一行中的所有单元格高度相同.
+	二、多行多栏布局
+		排版思路：对于多行的布局，首先将他们的需要布局的元素进行浮动，然后设置合理的宽度，
+		浮动完成之后为内部的元素添加样式
+		例子：
+		<style>
+			body{
+				margin:0;
+				padding:0;
+			}
+			.container{
+				overflow:hidden;
+				width:960px;
+				border:1px dashed red;
+				margin:20px auto;
+			}
+			nav{
+				display:table-cell;
+				width:150px;
+				padding:10px;
+				background:#dcd9c0;
+			}
+			article.a1{
+				text-indent:2em;
+				width:auto;
+				display:table-cell;
+				padding:10px 20px;
+				background:#ffed53;
+			}
+			aside{
+				display:table-cell;
+				width:210;
+				padding:10px;
+				background:#3f7ccf;
+			}
+			nav.nav{
+				display:block;
+				width:100%;
+			}
+			section{
+				overflow:hidden;
+			}
+			img{
+				height:100px;
+				width:100%;
+			}
+			article.three{
+				width:20%;
+			}
+			section#feature_area article{
+				float:left;
+				width:320px;
+				padding:10px 0;
+				background:#fff;
+				border-top:4px solid #f7be84;
+			}
+			section#feature_area article .inner{
+				margin:10px 20px;
+				padding:5px;
+				background:#fff;
+				border:5px solid;
+			}
+			
+			section#promo_area article{
+				float:left;
+				width:240px;
+				padding:10px 0px;
+				background:#bfbfbf;
+				border-top:4px solid #33ccff;
+			}
+			section#promo_area article .inner{
+				margin:10px 20px;
+				border:2px dashed #00cccc;
+				padding:5px;
+			}
+			section#promo_area article:nth-child(1) .inner{
+				background:#80bfff;
+			}
+			section#promo_area article:nth-child(2) .inner{
+				background:#ff8080;
+			}
+			section#promo_area article:nth-child(3) .inner{
+				background:#00ff80;
+			}
+			section#promo_area article:nth-child(4) .inner{
+				background:#00ccff;
+			}
+			</style>
+			
+			<------------------------------------------html------------------------------>
+			<body>
+		<div class="container">
+			<nav>
+				<ul>
+					<li>首页</li>
+					<li>联系我们</li>
+					<li>项目进度</li>
+					<li>测试工具</li>
+				</ul>
+			</nav>
+			<article calss="a1">
+				<p>
+					这里是我们的实验室和创新区，这里是我们的实验室和创新区这里是我们的实验室和创新区这里是我们的实验室和创新区
+					这里是我们的实验室和创新区这里是我们的实验室和创新区这里是我们的实验室和创新区这里是我们的实验室和创新区
+				</p>
+			</article>
+			<aside>
+				这里是靠右的一行
+			</aside>
+		</div>
+		<div class="container">
+			<header>
+				<h1>与body等宽的标签</h1>
+			</header>
+			<nav class="nav">
+				<p>导航栏元素</p>
+			</nav>
+			<section id="image">
+				<img src="bg.jpg"/>
+			</section>
+			<section id="feature_area">
+				<article class="three">
+					<div class="inner">
+						<p>三栏布局1</p>
+					</div>
+				</article>
+				<article class="three">
+					<div class="inner">
+						<p>三栏布局2</p>
+					</div>
+				</article>
+				<article class="three">
+					<div class="inner">
+						<p>三栏布局3</p>
+					</div>
+				</article>
+			</section>
+			<section id="promo_area">
+				<article>
+					<div class="inner">
+						<p>四栏第一格</p>
+					</div>
+				</article>
+				<article>
+					<div class="inner">
+						<p>四栏第二格</p>
+					</div>
+				</article>
+				<article>
+					<div class="inner">
+						<p>四栏第三格</p>
+					</div>
+				</article>
+				<article>
+					<div class="inner">
+						<p>四栏第四格</p>
+					</div>
+				</article>
+			</section>
+		</div>
+	</body>

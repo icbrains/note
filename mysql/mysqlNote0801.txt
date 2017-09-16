@@ -31,7 +31,17 @@
 		【code】
 		SELECT DISTINCT em_id  
 			FROM account
-3.2、from子句
+3.2、insert 子句
+        概述：向表中插入数据
+	insert into table_name values();适用于所有数据库；插入单行数据
+	insert into table_name(col1,col2,col3,...)values(),(),...;这是一次性插入多行记录，适用于mysql数据库
+3.3、delete 子句
+        概述：删除表中的字段的值
+	delete from table_name where col='';
+3.4、update子句
+        概述：更新表中的字段值
+	update table_name set where colls='' where col='';
+3.5、from子句
 	概述：form子句定义了查询中所使用的表，以及连接这些表的方式
 	3.2.1、表的概念
 		表存在三种类型：
@@ -57,13 +67,13 @@
 			
 	3.2.4	where子句
 		概念：where子句用于在结果集中过滤不需要的行
-3.3、group by和having子句
+3.6、group by和having子句
 	SELECT a.cust_id,count(e.em_id) num_employee
 		FROM account a INNER JOIN employee e
 			ON a.em_id = e.em_id
 			GROUP BY a.cust_id
 			HAVING count(e.em_id)>1；
-3.4、order by子句
+3.7、order by子句
 	概念：order by子句用于对结果集的原始列数据或是根据列数据计算的表达式结果进行排序。
 	【code】
 	SELECT a.em_id,a.cust_id,a.creat_account_date
