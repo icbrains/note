@@ -45,6 +45,27 @@ EL调用类中的方法需要的条件
 ②在El的逻辑运算中，对于不知道的变量，默认值为false
 ③在EL的表达式中，对于不知道的变量，什么也不会打印，更不会抛出异常
 
+用户对servlet的请求，每个用户的请求都在一个单独的线程中
+
+servletConfig对象
+	每个servlet都有一个ServletConfig对象
+	用于向servlet传递部署时信息（例如数据库或企业bean的查找名）
+	用于访问ServletContext
+	参数在部署描述文件中配置
+ServletContext
+	每个web应用有一个ServletContext
+	用于访问web应用参数（也在部署描述文件中配置）
+	相当于一种应用公告栏，可以在这里放置消息(称之为属性)，应用的其他部分可以访问这些消息
+	用于得到服务器的信息，包括容器名和容器版本，以及所支持API的版本等
+
+HttpservletRequest、HttpservletResponse分别来自ServletRequest、ServletResponse
+HttpServlet的大多数实现实际上都来自于GenericServlet
+
+监听器只能监听request、session、servletContext
+
+获得ServletContext的几种方法
+	servlet中使用this.getServletContext();
+
 
 
 

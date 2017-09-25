@@ -1,0 +1,6 @@
+欧几里得算法
+计算A和B的最大公约数GCD(greatest common divisor)
+GCD(A,B)
+①A=0;GCD(A,B)=B;
+②B=0;GCD(A,B)=A;
+③A!=0;B!=0;A=B*Q+R;GCD(A,B)=GCD(B,R);其中Q是一个整数，R是一个大于0小于B-1的一个整数
